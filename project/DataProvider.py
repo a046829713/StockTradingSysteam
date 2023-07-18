@@ -19,6 +19,18 @@ class DataProvider():
     def __init__(self) -> None:
         self.session = requests.session()
         self.SQL = SQL_operate.DB_operate()
+    
+    def import_history_data(self):
+        pass
+    
+    
+    def export_history_data(self):
+        """
+            to export taiwan stock history data to csv
+        """
+        df = self.SQL.read_Dateframe(f"select * from `dailytwstock`;")
+        
+
 
     def GetALLStockData(self):
         return self.SQL.read_Dateframe(f"select * from `dailytwstock`;")
