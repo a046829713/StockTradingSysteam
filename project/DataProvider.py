@@ -19,18 +19,17 @@ class DataProvider():
     def __init__(self) -> None:
         self.session = requests.session()
         self.SQL = SQL_operate.DB_operate()
-    
+
     def import_history_data(self):
         pass
-    
-    
+
     def export_history_data(self):
         """
             to export taiwan stock history data to csv
         """
         df = self.SQL.read_Dateframe(f"select * from `dailytwstock`;")
-        
-
+        df.set_index('date', inplace=True)
+        df.to_csv("TaiwanStockHistoryDailyData.csv")
 
     def GetALLStockData(self):
         return self.SQL.read_Dateframe(f"select * from `dailytwstock`;")
@@ -208,14 +207,16 @@ class DataProvider():
             print(each_date)
             if index > 301:
                 break
-            
+
             for each_id in allStockID:
                 print("目前解析股票:", each_id)
-                each_date_list = allStockData[allStockData['stock_id']== each_id]['date'].to_list()
+                each_date_list = allStockData[allStockData['stock_id'] == each_id]['date'].to_list(
+                )
                 each_date_list = [str(i) for i in date_list]
                 if each_date_list.index(each_date) != index:
                     raise
-                each_symbol_data = allStockData[allStockData['stock_id'] == each_id][:index]
+                each_symbol_data = allStockData[allStockData['stock_id']
+                                                == each_id][:index]
 
                 # Create a copy of each_symbol_data for each condition to prevent internal modifications
                 each_symbol_data_cond1 = each_symbol_data.copy()
@@ -280,4 +281,4 @@ if __name__ == '__main__':
     # print(app.date_range(datetime.strptime("2023-06-09","%Y-%m-%d"),datetime.strptime("2023-06-12","%Y-%m-%d")))
     # app.GetALLDailyHistroyData()
 
-    app.get_everyday_target_ymobl()
+    app.export_history_data()
