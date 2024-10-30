@@ -13,19 +13,20 @@ def get_mysql_financialdata_conn() -> engine.base.Connection:
     Returns:
         engine.base.Connection: _description_
     """
-    # address = "mysql+pymysql://root:test@localhost:3306/crypto_data"
-    address = "mysql+pymysql://root:123456@localhost:3306/twstock"
+    address = "mysql+pymysql://root:test@localhost:3306/twstock"
+    # address = "mysql+pymysql://root:123456@localhost:3306/twstock"
     engine = create_engine(address)
     connect = engine.connect()
 
     return connect
 
+
 def checkIfDataBase():
     """
 
     """
-    # address = "mysql+pymysql://root:test@localhost:3306"
-    address = "mysql+pymysql://root:123456@localhost:3306"
+    address = "mysql+pymysql://root:test@localhost:3306"
+    # address = "mysql+pymysql://root:123456@localhost:3306"
     engine = create_engine(address)
     connection = engine.connect()
 
@@ -33,5 +34,6 @@ def checkIfDataBase():
     if databases.rowcount > 0:
         pass
     else:
-        print("建立測試")
         connection.execute(text("CREATE DATABASE twstock"))
+
+

@@ -5,10 +5,11 @@ import pandas as pd
 import time
 from . import clients
 
+
 class DB_operate():
     def __init__(self) -> None:
         self._checkALLDataBaseTables()
-    
+
     def _checkALLDataBaseTables(self):
         """
             當建立好SQL的最上層物件
@@ -48,7 +49,7 @@ class DB_operate():
 
                 return list(result)
         except Exception as e:
-                    print(e)
+            print(e)
 
     def change_db_data(self, text_msg: str) -> None:
         """ 用於下其他指令
@@ -105,12 +106,26 @@ class DB_operate():
 
 class SqlSentense():
     @staticmethod
-    def createOptimizResult() -> str:
-        sql_query = """
-            
-
-
-        """
+    def createEveryDayTarget() -> str:
+        sql_query = '''
+            CREATE TABLE everydaytarget (
+                date VARCHAR(255),
+                target_symbol TEXT
+            );
+        '''
 
         return sql_query
 
+    @staticmethod
+    def createIssueShares() -> str:
+        sql_query = '''
+            CREATE TABLE issueshares (
+                issue_date VARCHAR(255),
+                stock_id VARCHAR(255),
+                IssueShares bigint,
+                PRIMARY KEY (stock_id, issue_date)
+            );
+
+        '''
+
+        return sql_query

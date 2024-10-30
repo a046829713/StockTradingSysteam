@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+from utils.TimeCountMsg import TimeCountMsg
 
 class DataTransformer():
     def __init__(self) -> None:
@@ -94,6 +94,7 @@ class DataTransformer():
             return True
         else:
             return False
+        
 
     def calculate_rsr(each_symbol_data: pd.DataFrame, period=126, weeks=6):        
         """Calculate the Relative Strength Ranking over a specified period"""
@@ -128,3 +129,27 @@ class DataTransformer():
             
 
         return False
+    
+    
+    @staticmethod
+    def find_duplicates(lst):
+        """
+        lst = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
+        duplicates = find_duplicates(lst)
+        print(duplicates)  # 會印出 {2, 3, 4}
+
+        Args:
+            lst (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        seen = set()
+        duplicates = set()
+
+        for item in lst:
+            if item in seen:
+                duplicates.add(item)
+            seen.add(item)
+
+        return duplicates
